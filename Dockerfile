@@ -1,4 +1,4 @@
-FROM --platform=linux/x86_64 python:3
+FROM --platform=linux/x86_64 python:3.9
 
 WORKDIR /home
 
