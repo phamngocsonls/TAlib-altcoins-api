@@ -22,6 +22,8 @@ async def indicators(exchange: str, symbol: str, interval: str = '30m', limit: i
     cl = df['close']
     vl = df['volume']
 
+    rsi = talib.RSI(cl.values, timeperiod=14)
+    """
     adx = talib.ADX(hi.values, lo.values, cl.values, timeperiod=14)
     rsi = talib.RSI(cl.values, timeperiod=14)
     plus_di = talib.PLUS_DI(hi.values, lo.values, cl.values, timeperiod=14)
@@ -41,10 +43,20 @@ async def indicators(exchange: str, symbol: str, interval: str = '30m', limit: i
     linear_angle =  convert_number(talib.LINEARREG_ANGLE(cl.values, timeperiod=14)[-1])
     linear_intercept = convert_number(talib.LINEARREG_INTERCEPT(cl.values, timeperiod=14)[-1])
     linear_slope = convert_number(talib.LINEARREG_SLOPE(cl.values, timeperiod=14)[-1])
-    
+    """
+    rsi3 = rsi[-3:]
+    rsi3_str = ""
+    for i in range(0,len(rsi3)):
+        rsi3_str = rsi3_str + str(round(rsi3[i],2))
+        if i!=len(rsi3)-1:
+            rsi3_str = rsi3_str + "-"
+    """
     return {
+      "close_price": cl[99],
+      "volume": vl[99],
       "adx": adx[-1],
       "rsi": rsi[-1],
+      "rsi3": rsi3_str,
       "plus_di": plus_di[-1],
       "minus_di": minus_di[-1],
       "sma": round(sma[-1], 8),
@@ -60,6 +72,11 @@ async def indicators(exchange: str, symbol: str, interval: str = '30m', limit: i
       "linear_angle": linear_angle,
       "linear_intercept": linear_intercept,
       "linear_slope": linear_slope
+    }
+    """
+    return {
+      "rsi": rsi[-1],
+      "rsi3": rsi3_str
     }
 
 def convert_number(value):
