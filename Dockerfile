@@ -1,4 +1,5 @@
-FROM --platform=linux/x86_64 python:3.9
+FROM amd64/python:3.9
+MAINTAINER "henrique@breim.com.br"
 
 WORKDIR /home
 
